@@ -1,0 +1,5 @@
+# teleports.limit.entryname
+limits:
+  default: 1
+  vip: 5
+  veteran: 10

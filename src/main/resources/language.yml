@@ -1,0 +1,7 @@
+no-back-location: '<red>You have no location to return to!'
+back-success: '<hover:show_text:"<white>X: <x>, Y: <y>, Z: <z>\nPitch: <pitch>, Yaw: <yaw>\nWorld: <world>"><green>You have returned to your last location!'
+teleport-success: '<hover:show_text:"<white>X: <x>, Y: <y>, Z: <z>\nPitch: <pitch>, Yaw: <yaw>\nWorld: <world>"><green>Teleport success!'
+player-warp-success: '<hover:show_text:"<white>X: <x>, Y: <y>, Z: <z>\nPitch: <pitch>, Yaw: <yaw>\nWorld: <world>"><green>Teleported to player warp <pwarp>.'
+player-warp-info: '<click:suggest_command:/peditwarp><green>To edit your warp, run <yellow>/peditwarp'
+player-warp-not-found: '<red>Player warp not found!'
+pwarp-insufficient-funds: '<red>Player warp <pwarp> costs <cost>!'
