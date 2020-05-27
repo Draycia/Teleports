@@ -35,25 +35,17 @@ public class PlayerWarpRowRenderer implements RowRenderer<PlayerWarp> {
             return Collections.emptyList();
         }
 
-        // TODO: language.yml this
-        TextColor nameColor = canUse ? TextColor.GREEN : TextColor.RED;
+        Component component;
 
-        // TODO: language.yml this
-        // TODO: language.yml this
-        // TODO: language.yml this
-        // TODO: language.yml this
-        // TODO: language.yml this
-        // TODO: language.yml this
-        TextComponent.Builder component = TextComponent.builder()
-                .append(TextComponent.of(index))
-                .append(TextComponent.of(" > ").color(TextColor.GOLD))
-                .append(TextComponent.of(value.getName()).color(nameColor))
-                .append(TextComponent.of(" - ").color(TextColor.GRAY))
-                .append(TextComponent.of(player.getName()).color(TextColor.AQUA))
-                .clickEvent(ClickEvent.runCommand("/teleports:pwarp " + value.getName()));
+        if (canUse) {
+            component = main.getMessage("pwarp-row-canuse", "pwarp", value.getName(),
+                    "player", player.getName(), "index", Integer.toString(index));
+        } else {
+            component = main.getMessage("pwarp-row-cannotuse", "pwarp", value.getName(),
+                    "player", player.getName(), "index", Integer.toString(index));
+        }
 
-
-        return Collections.singleton(component.build());
+        return Collections.singleton(component);
     }
 
 }
