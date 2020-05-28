@@ -29,7 +29,7 @@ public class PlayerWarpCommand extends BaseCommand {
     @CommandCompletion("@player-warp")
     public void baseCommand(Player player, PlayerWarp playerWarp) {
         if (playerWarp == null) {
-            TextAdapter.sendMessage(player, main.getMessage("player-warp-not-found"));
+            TextAdapter.sendMessage(player, main.getMessage("pwarp-not-found"));
             return;
         }
 
@@ -51,7 +51,7 @@ public class PlayerWarpCommand extends BaseCommand {
 
         PaperLib.teleportAsync(player, location);
 
-        TextAdapter.sendMessage(player, main.getMessage("player-warp-success",
+        TextAdapter.sendMessage(player, main.getMessage("pwarp-success",
                 "x", format.format(location.getX()),
                 "y", format.format(location.getY()),
                 "z", format.format(location.getZ()),
@@ -60,7 +60,7 @@ public class PlayerWarpCommand extends BaseCommand {
                 "yaw", format.format(location.getYaw()),
                 "pwarp", playerWarp.getName()));
 
-        TextAdapter.sendMessage(player, main.getMessage("player-warp-info"));
+        TextAdapter.sendMessage(player, main.getMessage("pwarp-info"));
     }
 
 }

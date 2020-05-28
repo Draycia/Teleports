@@ -39,7 +39,7 @@ public class PlayerEditWarpCommand extends BaseCommand {
     @Subcommand("setpublic")
     public void setPublic(Player player, PlayerWarp playerWarp, boolean isPublic) {
         if (playerWarp == null) {
-            TextAdapter.sendMessage(player, main.getMessage("player-warp-not-found"));
+            TextAdapter.sendMessage(player, main.getMessage("pwarp-not-found"));
             return;
         }
 

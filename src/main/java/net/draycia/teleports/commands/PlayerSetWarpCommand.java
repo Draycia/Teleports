@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import net.draycia.teleports.Teleports;
 import net.draycia.teleports.playerwarps.PlayerWarp;
+import net.kyori.text.adapter.bukkit.TextAdapter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class PlayerSetWarpCommand extends BaseCommand {
         }
 
         if (!warpName.matches("^[a-zA-Z0-9_\\-]*$")) {
-            // TODO: name invalid, send error message
+            TextAdapter.sendMessage(player, main.getMessage("name-format-invalid"));
             return;
         }
 
@@ -36,7 +37,7 @@ public class PlayerSetWarpCommand extends BaseCommand {
 
         main.getPlayerWarpManager().addPlayerWarp(warp);
 
-        // TODO: send warp message
+        TextAdapter.sendMessage(player, main.getMessage("pwarp-create-success", "pwarp", warpName));
     }
 
 }

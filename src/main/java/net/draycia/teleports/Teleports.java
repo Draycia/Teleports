@@ -73,7 +73,6 @@ public final class Teleports extends JavaPlugin {
             HashMap<UUID, BackLocation> backs = gson.fromJson(gson.newJsonReader(new FileReader(backFile)), backType);
 
             if (backs != null) {
-                System.out.println("not null");
                 backLocations = backs;
             }
         } catch (IOException e) {
@@ -89,7 +88,7 @@ public final class Teleports extends JavaPlugin {
         playerWarpManager.save();
 
         try {
-            gson.toJson(backLocations, backType, gson.newJsonWriter(new FileWriter(backFile))); // TODO: BAD. RECURSION.
+            gson.toJson(backLocations, backType, gson.newJsonWriter(new FileWriter(backFile)));
         } catch (IOException e) {
             e.printStackTrace();
         }

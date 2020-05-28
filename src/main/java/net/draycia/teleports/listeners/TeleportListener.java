@@ -17,18 +17,6 @@ public class TeleportListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
-        if (main == null) {
-            System.out.println("main null");
-        }
-
-        if (main.getBackLocations() == null) {
-            System.out.println("back null");
-        }
-
-        if (event.getPlayer() == null) {
-            System.out.println("player null");
-        }
-
         main.getBackLocations().put(event.getPlayer().getUniqueId(), new BackLocation(event.getFrom()));
     }
 
