@@ -1,6 +1,7 @@
 package net.draycia.teleports;
 
 import co.aikar.commands.CommandIssuer;
+import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.PaperCommandManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +14,7 @@ import net.draycia.teleports.playerwarps.PlayerWarp;
 import net.draycia.teleports.playerwarps.PlayerWarpManager;
 import net.kyori.text.Component;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -139,6 +141,37 @@ public final class Teleports extends JavaPlugin {
             return completions;
         });
 
+        commandManager.getCommandCompletions().registerCompletion("player-warp-members", (context) -> {
+            ArrayList<String> completions = new ArrayList<>();
+
+            String[] input = context.getInput().split(" ");
+
+            if (input.length < 2) {
+                return completions;
+            }
+
+            PlayerWarp playerWarp = getPlayerWarpManager().getWarp(input[1]);
+
+            if (playerWarp == null || !playerWarp.getOwner().equals(context.getPlayer().getUniqueId())) {
+                return completions;
+            }
+
+            for (UUID uuid : playerWarp.getMembers()) {
+                completions.add(Bukkit.getOfflinePlayer(uuid).getName());
+            }
+
+            return completions;
+        });
+
+        commandManager.getCommandConditions().addCondition(PlayerWarp.class, "pwarp-owner", (context, execution, value) -> {
+            if (value == null) {
+                throw new ConditionFailedException("Player Warp cannot be null.");
+            }
+
+            if (!value.getOwner().equals(context.getIssuer().getUniqueId())) {
+                throw  new ConditionFailedException("Issuer does not own the specified player warp.");
+            }
+        });
 
         commandManager.getCommandContexts().registerContext(PlayerWarp.class,
                 (context) -> playerWarpManager.getWarp(context.popFirstArg()));
