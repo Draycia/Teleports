@@ -1,11 +1,11 @@
-package net.draycia.teleports.backs;
+package net.draycia.teleports;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.util.UUID;
 
-public class BackLocation {
+public class SerializableLocation {
 
     private double x;
     private double y;
@@ -17,7 +17,7 @@ public class BackLocation {
 
     private transient Location location = null;
 
-    public BackLocation(double x, double y, double z, float pitch, float yaw, UUID worldId) {
+    public SerializableLocation(double x, double y, double z, float pitch, float yaw, UUID worldId) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -26,7 +26,7 @@ public class BackLocation {
         this.worldId = worldId;
     }
 
-    public BackLocation(Location location) {
+    public SerializableLocation(Location location) {
         this.x = location.getX();
         this.y = location.getY();
         this.z = location.getZ();

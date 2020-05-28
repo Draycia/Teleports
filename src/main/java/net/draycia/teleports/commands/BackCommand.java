@@ -18,7 +18,6 @@ import java.text.DecimalFormat;
 public class BackCommand extends BaseCommand {
 
     private Teleports main;
-    DecimalFormat format = new DecimalFormat("#.##");
 
     public BackCommand(Teleports main) {
         this.main = main;
@@ -36,12 +35,12 @@ public class BackCommand extends BaseCommand {
 
         PaperLib.teleportAsync(player, location);
         TextAdapter.sendMessage(player, main.getMessage("back-success",
-                "x", format.format(location.getX()),
-                "y", format.format(location.getY()),
-                "z", format.format(location.getZ()),
+                "x", Teleports.FORMAT.format(location.getX()),
+                "y", Teleports.FORMAT.format(location.getY()),
+                "z", Teleports.FORMAT.format(location.getZ()),
                 "world", location.getWorld().getName(),
-                "pitch", format.format(location.getPitch()),
-                "yaw", format.format(location.getYaw())));
+                "pitch", Teleports.FORMAT.format(location.getPitch()),
+                "yaw", Teleports.FORMAT.format(location.getYaw())));
     }
 
 }

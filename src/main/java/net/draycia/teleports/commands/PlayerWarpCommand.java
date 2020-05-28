@@ -1,10 +1,7 @@
 package net.draycia.teleports.commands;
 
 import co.aikar.commands.BaseCommand;
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandCompletion;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.*;
 import io.papermc.lib.PaperLib;
 import net.draycia.teleports.playerwarps.PlayerWarp;
 import net.draycia.teleports.Teleports;
@@ -27,12 +24,7 @@ public class PlayerWarpCommand extends BaseCommand {
 
     @Default
     @CommandCompletion("@player-warp")
-    public void baseCommand(Player player, PlayerWarp playerWarp) {
-        if (playerWarp == null) {
-            TextAdapter.sendMessage(player, main.getMessage("pwarp-not-found"));
-            return;
-        }
-
+    public void baseCommand(Player player, @Conditions("pwarp-exists") PlayerWarp playerWarp) {
         if (!main.getPlayerWarpManager().canUsePlayerWarp(player, playerWarp)) {
             return;
         }
@@ -47,7 +39,7 @@ public class PlayerWarpCommand extends BaseCommand {
             main.getEconomy().depositPlayer(player, playerWarp.getPrice());
         }
 
-        Location location = playerWarp.getLocation();
+        Location location = playerWarp.getLocation().getLocation();
 
         PaperLib.teleportAsync(player, location);
 

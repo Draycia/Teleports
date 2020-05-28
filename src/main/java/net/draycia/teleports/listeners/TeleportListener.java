@@ -1,7 +1,7 @@
 package net.draycia.teleports.listeners;
 
 import net.draycia.teleports.Teleports;
-import net.draycia.teleports.backs.BackLocation;
+import net.draycia.teleports.SerializableLocation;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -17,7 +17,7 @@ public class TeleportListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
-        main.getBackLocations().put(event.getPlayer().getUniqueId(), new BackLocation(event.getFrom()));
+        main.getBackLocations().put(event.getPlayer().getUniqueId(), new SerializableLocation(event.getFrom()));
     }
 
 }

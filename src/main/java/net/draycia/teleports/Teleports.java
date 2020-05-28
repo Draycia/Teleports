@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import me.minidigger.minimessage.text.MiniMessageParser;
-import net.draycia.teleports.backs.BackLocation;
 import net.draycia.teleports.commands.*;
 import net.draycia.teleports.listeners.TeleportListener;
 import net.draycia.teleports.playerwarps.PlayerWarp;
@@ -24,23 +23,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public final class Teleports extends JavaPlugin {
 
-    private HashMap<UUID, BackLocation> backLocations = new HashMap<>();
-    private Type backType = new TypeToken<HashMap<UUID, BackLocation>>() {}.getType();
+    private HashMap<UUID, SerializableLocation> backLocations = new HashMap<>();
+    private Type backType = new TypeToken<HashMap<UUID, SerializableLocation>>() {}.getType();
     private File backFile;
 
     private Economy economy;
 
     private PlayerWarpManager playerWarpManager;
 
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private YamlConfiguration language = new YamlConfiguration();
+
+    public static DecimalFormat FORMAT = new DecimalFormat("#.##");
 
     @Override
     public void onEnable() {
@@ -72,7 +74,7 @@ public final class Teleports extends JavaPlugin {
         setupListeners();
 
         try {
-            HashMap<UUID, BackLocation> backs = gson.fromJson(gson.newJsonReader(new FileReader(backFile)), backType);
+            HashMap<UUID, SerializableLocation> backs = gson.fromJson(gson.newJsonReader(new FileReader(backFile)), backType);
 
             if (backs != null) {
                 backLocations = backs;
@@ -96,7 +98,7 @@ public final class Teleports extends JavaPlugin {
         }
     }
 
-    public HashMap<UUID, BackLocation> getBackLocations() {
+    public HashMap<UUID, SerializableLocation> getBackLocations() {
         return backLocations;
     }
 
@@ -164,12 +166,14 @@ public final class Teleports extends JavaPlugin {
         });
 
         commandManager.getCommandConditions().addCondition(PlayerWarp.class, "pwarp-owner", (context, execution, value) -> {
+            if (value == null || !value.getOwner().equals(context.getIssuer().getUniqueId())) {
+                throw  new ConditionFailedException("Issuer does not own the specified player warp.");
+            }
+        });
+
+        commandManager.getCommandConditions().addCondition(PlayerWarp.class, "pwarp-exists", (context, execution, value) -> {
             if (value == null) {
                 throw new ConditionFailedException("Player Warp cannot be null.");
-            }
-
-            if (!value.getOwner().equals(context.getIssuer().getUniqueId())) {
-                throw  new ConditionFailedException("Issuer does not own the specified player warp.");
             }
         });
 

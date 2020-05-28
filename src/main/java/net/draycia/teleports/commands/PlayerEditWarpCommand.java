@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.*;
 import net.draycia.teleports.Teleports;
 import net.draycia.teleports.playerwarps.PlayerWarp;
 import net.kyori.text.adapter.bukkit.TextAdapter;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -14,7 +15,6 @@ import java.text.DecimalFormat;
 public class PlayerEditWarpCommand extends BaseCommand {
 
     private Teleports main;
-    private DecimalFormat format = new DecimalFormat("#.##");
 
     public PlayerEditWarpCommand(Teleports main) {
         this.main = main;
@@ -22,15 +22,15 @@ public class PlayerEditWarpCommand extends BaseCommand {
 
     @CommandCompletion("@player-warp-owned price")
     @Subcommand("setcost")
-    public void setCost(Player player, @Conditions("pwarp-owner") PlayerWarp playerWarp, float price) {
+    public void setCost(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, float price) {
         playerWarp.setPrice(price);
         TextAdapter.sendMessage(player, main.getMessage("pwarp-set-price",
-                "pwarp", playerWarp.getName(), "price", format.format(price)));
+                "pwarp", playerWarp.getName(), "price", Teleports.FORMAT.format(price)));
     }
 
     @CommandCompletion("@player-warp-owned @boolean")
     @Subcommand("setpublic")
-    public void setPublic(Player player, @Conditions("pwarp-owner") PlayerWarp playerWarp, boolean isPublic) {
+    public void setPublic(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, boolean isPublic) {
         playerWarp.setPublic(isPublic);
 
         if (isPublic) {
@@ -44,7 +44,7 @@ public class PlayerEditWarpCommand extends BaseCommand {
 
     @CommandCompletion("@player-warp-owned @players")
     @Subcommand("addmember")
-    public void addMember(Player player, @Conditions("pwarp-owner") PlayerWarp playerWarp, Player target) {
+    public void addMember(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, Player target) {
         playerWarp.getMembers().add(target.getUniqueId());
         TextAdapter.sendMessage(player, main.getMessage("pwarp-add-member", "target",
                 target.getName(), "pwarp", playerWarp.getName()));
@@ -52,10 +52,27 @@ public class PlayerEditWarpCommand extends BaseCommand {
 
     @CommandCompletion("@player-warp-owned @player-warp-members")
     @Subcommand("removemember")
-    public void removeMember(Player player, @Conditions("pwarp-owner") PlayerWarp playerWarp, Player target) {
+    public void removeMember(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, Player target) {
         playerWarp.getMembers().remove(target.getUniqueId());
         TextAdapter.sendMessage(player, main.getMessage("pwarp-remove-member", "target",
                 target.getName(), "pwarp", playerWarp.getName()));
+    }
+
+    @CommandCompletion("@player-warp-owned")
+    @Subcommand("setcost")
+    public void setLocation(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp) {
+        Location location = player.getLocation();
+
+        playerWarp.setLocation(player.getLocation());
+
+        TextAdapter.sendMessage(player, main.getMessage("pwarp-set-location",
+                "x", Teleports.FORMAT.format(location.getX()),
+                "y", Teleports.FORMAT.format(location.getY()),
+                "z", Teleports.FORMAT.format(location.getZ()),
+                "world", location.getWorld().getName(),
+                "pitch", Teleports.FORMAT.format(location.getPitch()),
+                "yaw", Teleports.FORMAT.format(location.getYaw()),
+                "pwarp", playerWarp.getName()));
     }
 
 }
