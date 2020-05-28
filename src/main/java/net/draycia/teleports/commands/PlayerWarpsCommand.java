@@ -38,7 +38,7 @@ public class PlayerWarpsCommand extends BaseCommand {
                 page == null ? 1 : page);
 
         for (Component component : components) {
-            TextAdapter.sendComponent(player, component);
+            TextAdapter.sendMessage(player, component);
         }
     }
 

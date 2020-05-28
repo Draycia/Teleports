@@ -29,7 +29,7 @@ public class PlayerWarpCommand extends BaseCommand {
     @CommandCompletion("@player-warp")
     public void baseCommand(Player player, PlayerWarp playerWarp) {
         if (playerWarp == null) {
-            TextAdapter.sendComponent(player, main.getMessage("player-warp-not-found"));
+            TextAdapter.sendMessage(player, main.getMessage("player-warp-not-found"));
             return;
         }
 
@@ -39,7 +39,7 @@ public class PlayerWarpCommand extends BaseCommand {
 
         if (playerWarp.getPrice() > 0) {
             if (!main.getEconomy().has(player, playerWarp.getPrice())) {
-                TextAdapter.sendComponent(player, main.getMessage("pwarp-insufficient-funds", "cost", Double.toString(playerWarp.getPrice()), "pwarp", playerWarp.getName()));
+                TextAdapter.sendMessage(player, main.getMessage("pwarp-insufficient-funds", "cost", Double.toString(playerWarp.getPrice()), "pwarp", playerWarp.getName()));
                 return;
             }
 
@@ -51,7 +51,7 @@ public class PlayerWarpCommand extends BaseCommand {
 
         PaperLib.teleportAsync(player, location);
 
-        TextAdapter.sendComponent(player, main.getMessage("player-warp-success",
+        TextAdapter.sendMessage(player, main.getMessage("player-warp-success",
                 "x", format.format(location.getX()),
                 "y", format.format(location.getY()),
                 "z", format.format(location.getZ()),
@@ -60,7 +60,7 @@ public class PlayerWarpCommand extends BaseCommand {
                 "yaw", format.format(location.getYaw()),
                 "pwarp", playerWarp.getName()));
 
-        TextAdapter.sendComponent(player, main.getMessage("player-warp-info"));
+        TextAdapter.sendMessage(player, main.getMessage("player-warp-info"));
     }
 
 }

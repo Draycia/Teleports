@@ -2,10 +2,7 @@ package net.draycia.teleports.playerwarps;
 
 import net.draycia.teleports.Teleports;
 import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
-import net.kyori.text.event.ClickEvent;
 import net.kyori.text.feature.pagination.Pagination.Renderer.RowRenderer;
-import net.kyori.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;

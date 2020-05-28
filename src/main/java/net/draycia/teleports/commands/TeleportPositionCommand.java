@@ -33,7 +33,7 @@ public class TeleportPositionCommand extends BaseCommand {
         Location location = new Location(world, x, y, z);
 
         PaperLib.teleportAsync(player, location);
-        TextAdapter.sendComponent(player, main.getMessage("teleport-success",
+        TextAdapter.sendMessage(player, main.getMessage("teleport-success",
                 "x", format.format(location.getX()),
                 "y", format.format(location.getY()),
                 "z", format.format(location.getZ()),

@@ -1,13 +1,10 @@
 package net.draycia.teleports;
 
-import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.CommandIssuer;
-import co.aikar.commands.CommandManager;
 import co.aikar.commands.PaperCommandManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import io.papermc.lib.PaperLib;
 import me.minidigger.minimessage.text.MiniMessageParser;
 import net.draycia.teleports.backs.BackLocation;
 import net.draycia.teleports.commands.*;
@@ -111,13 +108,7 @@ public final class Teleports extends JavaPlugin {
     }
 
     private void setupCommands() {
-        CommandManager commandManager;
-
-        if (PaperLib.isPaper()) {
-            commandManager = new PaperCommandManager(this);
-        } else {
-            commandManager = new BukkitCommandManager(this);
-        }
+        PaperCommandManager commandManager = new PaperCommandManager(this);
 
         commandManager.getCommandCompletions().registerCompletion("player-warp", (context) -> {
             ArrayList<String> completions = new ArrayList<>();
@@ -150,9 +141,8 @@ public final class Teleports extends JavaPlugin {
         });
 
 
-        commandManager.getCommandContexts().registerContext(PlayerWarp.class, (context) -> {
-            return playerWarpManager.getWarp(context.popFirstArg());
-        });
+        commandManager.getCommandContexts().registerContext(PlayerWarp.class,
+                (context) -> playerWarpManager.getWarp(context.popFirstArg()));
 
         commandManager.registerCommand(new BackCommand(this));
         commandManager.registerCommand(new TeleportPositionCommand(this));

@@ -24,7 +24,7 @@ public class PlayerEditWarpCommand extends BaseCommand {
     @Subcommand("setcost")
     public void setCost(Player player, PlayerWarp playerWarp, float price) {
         if (playerWarp == null) {
-            TextAdapter.sendComponent(player, main.getMessage("player-warp-not-found"));
+            TextAdapter.sendMessage(player, main.getMessage("player-warp-not-found"));
             return;
         }
 
@@ -39,7 +39,7 @@ public class PlayerEditWarpCommand extends BaseCommand {
     @Subcommand("setpublic")
     public void setPublic(Player player, PlayerWarp playerWarp, boolean isPublic) {
         if (playerWarp == null) {
-            TextAdapter.sendComponent(player, main.getMessage("player-warp-not-found"));
+            TextAdapter.sendMessage(player, main.getMessage("player-warp-not-found"));
             return;
         }
 

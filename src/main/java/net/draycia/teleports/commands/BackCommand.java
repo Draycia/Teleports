@@ -30,12 +30,12 @@ public class BackCommand extends BaseCommand {
         Location location = main.getBackLocations().get(player.getUniqueId()).getLocation();
 
         if (location == null) {
-            TextAdapter.sendComponent(player, main.getMessage("no-back-location"));
+            TextAdapter.sendMessage(player, main.getMessage("no-back-location"));
             return;
         }
 
         PaperLib.teleportAsync(player, location);
-        TextAdapter.sendComponent(player, main.getMessage("back-success",
+        TextAdapter.sendMessage(player, main.getMessage("back-success",
                 "x", format.format(location.getX()),
                 "y", format.format(location.getY()),
                 "z", format.format(location.getZ()),
