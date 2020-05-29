@@ -51,8 +51,6 @@ public class PlayerWarpCommand extends BaseCommand {
                 "pitch", format.format(location.getPitch()),
                 "yaw", format.format(location.getYaw()),
                 "pwarp", playerWarp.getName()));
-
-        TextAdapter.sendMessage(player, main.getMessage("pwarp-info"));
     }
 
 }

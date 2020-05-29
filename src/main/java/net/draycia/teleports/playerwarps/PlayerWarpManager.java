@@ -41,7 +41,11 @@ public class PlayerWarpManager {
                 file.createNewFile();
             }
 
-            playerWarps = gson.fromJson(gson.newJsonReader(new FileReader(file)), playerWarpsType);
+            ArrayList<PlayerWarp> warps = gson.fromJson(gson.newJsonReader(new FileReader(file)), playerWarpsType);
+
+            if (warps != null) {
+                this.playerWarps = warps;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

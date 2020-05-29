@@ -8,8 +8,6 @@ import net.kyori.text.adapter.bukkit.TextAdapter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.text.DecimalFormat;
-
 @CommandAlias("playereditwarp|peditwarp|pewarp|pew")
 @CommandPermission("teleports.pwarps.edit")
 public class PlayerEditWarpCommand extends BaseCommand {
@@ -20,9 +18,14 @@ public class PlayerEditWarpCommand extends BaseCommand {
         this.main = main;
     }
 
+    @Default
+    public void baseCommand(Player player) {
+        player.sendMessage("/peditwarp <setcost|setpublic|setlocation|addmember|removemember>");
+    }
+
     @CommandCompletion("@player-warp-owned price")
     @Subcommand("setcost")
-    public void setCost(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, float price) {
+    public void setCost(Player player, @Conditions("pwarp-exists:true,pwarp-owner:true") PlayerWarp playerWarp, float price) {
         playerWarp.setPrice(price);
         TextAdapter.sendMessage(player, main.getMessage("pwarp-set-price",
                 "pwarp", playerWarp.getName(), "price", Teleports.FORMAT.format(price)));
@@ -30,7 +33,7 @@ public class PlayerEditWarpCommand extends BaseCommand {
 
     @CommandCompletion("@player-warp-owned @boolean")
     @Subcommand("setpublic")
-    public void setPublic(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, boolean isPublic) {
+    public void setPublic(Player player, @Conditions("pwarp-exists:true,pwarp-owner:true") PlayerWarp playerWarp, @Default("true") Boolean isPublic) {
         playerWarp.setPublic(isPublic);
 
         if (isPublic) {
@@ -44,7 +47,7 @@ public class PlayerEditWarpCommand extends BaseCommand {
 
     @CommandCompletion("@player-warp-owned @players")
     @Subcommand("addmember")
-    public void addMember(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, Player target) {
+    public void addMember(Player player, @Conditions("pwarp-exists:true,pwarp-owner:true") PlayerWarp playerWarp, Player target) {
         playerWarp.getMembers().add(target.getUniqueId());
         TextAdapter.sendMessage(player, main.getMessage("pwarp-add-member", "target",
                 target.getName(), "pwarp", playerWarp.getName()));
@@ -52,15 +55,15 @@ public class PlayerEditWarpCommand extends BaseCommand {
 
     @CommandCompletion("@player-warp-owned @player-warp-members")
     @Subcommand("removemember")
-    public void removeMember(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp, Player target) {
+    public void removeMember(Player player, @Conditions("pwarp-exists:true,pwarp-owner:true") PlayerWarp playerWarp, Player target) {
         playerWarp.getMembers().remove(target.getUniqueId());
         TextAdapter.sendMessage(player, main.getMessage("pwarp-remove-member", "target",
                 target.getName(), "pwarp", playerWarp.getName()));
     }
 
-    @CommandCompletion("@player-warp-owned")
-    @Subcommand("setcost")
-    public void setLocation(Player player, @Conditions("pwarp-exists pwarp-owner") PlayerWarp playerWarp) {
+    @CommandCompletion("@player-warp-owned price")
+    @Subcommand("setlocation")
+    public void setLocation(Player player, @Conditions("pwarp-exists:true,pwarp-owner:true") PlayerWarp playerWarp) {
         Location location = player.getLocation();
 
         playerWarp.setLocation(player.getLocation());

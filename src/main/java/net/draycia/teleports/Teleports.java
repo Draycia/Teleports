@@ -167,13 +167,13 @@ public final class Teleports extends JavaPlugin {
 
         commandManager.getCommandConditions().addCondition(PlayerWarp.class, "pwarp-owner", (context, execution, value) -> {
             if (value == null || !value.getOwner().equals(context.getIssuer().getUniqueId())) {
-                throw  new ConditionFailedException("Issuer does not own the specified player warp.");
+                throw  new ConditionFailedException("You do not own that player warp.");
             }
         });
 
         commandManager.getCommandConditions().addCondition(PlayerWarp.class, "pwarp-exists", (context, execution, value) -> {
             if (value == null) {
-                throw new ConditionFailedException("Player Warp cannot be null.");
+                throw new ConditionFailedException("Player Warp does not exist.");
             }
         });
 
