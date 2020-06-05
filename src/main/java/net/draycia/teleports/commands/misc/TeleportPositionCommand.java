@@ -1,4 +1,4 @@
-package net.draycia.teleports.commands;
+package net.draycia.teleports.commands.misc;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;

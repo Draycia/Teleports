@@ -1,9 +1,10 @@
 no-back-location: '<red>You have no location to return to!'
 back-success: '<hover:show_text:"<white>X: <x>, Y: <y>, Z: <z>\nPitch: <pitch>, Yaw: <yaw>\nWorld: <world>"><green>You have returned to your last location!'
 teleport-success: '<hover:show_text:"<white>X: <x>, Y: <y>, Z: <z>\nPitch: <pitch>, Yaw: <yaw>\nWorld: <world>"><green>Teleport success!'
+reload: '<green>Teleports plugin reloaded!'
+name-format-invalid: '<red>Invalid name! Must be alphanumeric and underscores/dashes!'
 
 # Player warps
-name-format-invalid: '<red>Invalid name! Must be alphanumeric and underscores/dashes!'
 pwarp-success: '<hover:show_text:"<white>X: <x>, Y: <y>, Z: <z>\nPitch: <pitch>, Yaw: <yaw>\nWorld: <world>"><green>Teleported to player warp <pwarp>.'
 pwarp-info: '<click:suggest_command:/peditwarp><green>To edit your warp, run <yellow>/peditwarp'
 pwarp-not-found: '<red>Player warp not found!'
@@ -17,3 +18,17 @@ pwarp-set-public-on: '<green><pwarp> is now set to public!'
 pwarp-set-public-off: '<yellow><pwarp> is now set to private!'
 pwarp-set-price: '<green>Price to access <pwarp> is now set to <price>!'
 pwarp-set-location: '<green>Location for player warp <pwarp> has been set!'
+pwarp-location-changed: 'Player <player> moved pwarp <pwarp> location from [X:<oldx>, Y:<oldy>, Z:<oldz>, World: <oldworld>] to [X:<x>, Y:<y>, Z:<z>, World: <world>]'
+
+# Admin Warps
+warps-set-location: '<green>Location for warp <warp> has been set!'
+warps-set-warp: '<green>Warp <warp> has been set!'
+warps-use: '<green>Teleported to warp <warp>!'
+warp-insufficient-funds: '<red>Warp <pwarp> costs <cost>!'
+
+# Player Homes
+homes-list: '<green>Homes (<amount>): '
+homes-entry: '<click:run_command:/teleports:home <home>><home>, '
+homes-success: '<green>Teleported to home <home>.'
+homes-set-home: '<green>Home set!'
+homes-set-location: '<green>Home location set'

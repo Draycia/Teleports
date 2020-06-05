@@ -123,12 +123,12 @@ public class PlayerWarpManager {
     public int getPlayerWarpLimit(Player player) {
         int limit = 0;
 
-        ConfigurationSection limits = main.getConfig().getConfigurationSection("limits");
+        ConfigurationSection limits = main.getConfig().getConfigurationSection("limits.pwarps");
 
         for (String key : limits.getKeys(false)) {
             int entry = limits.getInt(key);
 
-            if (entry > limit && player.hasPermission("teleports.limits." + key)) {
+            if (entry > limit && player.hasPermission("teleports.limits.pwarps." + key)) {
                 limit = entry;
             }
         }

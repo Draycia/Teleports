@@ -20,14 +20,7 @@ public class PlayerWarp {
 
     private UUID warpId;
 
-    public PlayerWarp(Location location, String name, boolean isPublic, double price,
-                      UUID owner, ArrayList<UUID> members) {
-
-        this(new SerializableLocation(location), name, isPublic, price, owner, members);
-    }
-
-    public PlayerWarp(SerializableLocation location, String name, boolean isPublic,
-                      double price, UUID owner, ArrayList<UUID> members) {
+    public PlayerWarp(Location location, String name, boolean isPublic, double price, UUID owner, ArrayList<UUID> members) {
 
         this.name = name;
         this.isPublic = isPublic;
@@ -35,12 +28,12 @@ public class PlayerWarp {
         this.owner = owner;
         this.members = members;
 
-        this.location = location;
+        this.location = new SerializableLocation(location);
         this.warpId = UUID.randomUUID();
     }
 
-    public SerializableLocation getLocation() {
-        return location;
+    public Location getLocation() {
+        return location.getLocation();
     }
 
     public String getName() {
@@ -73,10 +66,6 @@ public class PlayerWarp {
 
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
-    }
-
-    public void setLocation(SerializableLocation location) {
-        this.location = location;
     }
 
     public void setLocation(Location location) {
