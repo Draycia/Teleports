@@ -3,3 +3,4 @@ version: ${project.version}
 main: net.draycia.teleports.Teleports
 api-version: 1.13
 depend: [Vault]
+softdepend: [Cooldowns]
