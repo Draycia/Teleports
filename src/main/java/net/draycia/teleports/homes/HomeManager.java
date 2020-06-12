@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 import net.draycia.teleports.Teleports;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -61,6 +62,10 @@ public class HomeManager {
 
     public void addHome(UUID uuid, Home home) {
         getPlayerHomes(uuid).add(home);
+    }
+
+    public void removeHome(OfflinePlayer offlinePlayer, Home home) {
+        getPlayerHomes(offlinePlayer.getUniqueId()).remove(home);
     }
 
     public ArrayList<Home> getPlayerHomes(UUID uuid) {

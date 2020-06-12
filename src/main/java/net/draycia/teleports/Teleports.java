@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import me.minidigger.minimessage.text.MiniMessageParser;
+import net.draycia.teleports.commands.homes.DeleteHomeCommand;
 import net.draycia.teleports.commands.homes.HomeCommand;
 import net.draycia.teleports.commands.misc.BackCommand;
 import net.draycia.teleports.commands.misc.TeleportGroupHereCommand;
@@ -266,6 +267,12 @@ public final class Teleports extends JavaPlugin {
             }
         });
 
+        commandManager.getCommandConditions().addCondition(Home.class, "home-exists", (context, execution, value) -> {
+            if (value == null) {
+                throw new ConditionFailedException("Home does not exist.");
+            }
+        });
+
         commandManager.getCommandConditions().addCondition(Home.class, "can-use-home", (context, execution, value) -> {
             if (value == null) {
                 return;
@@ -317,6 +324,7 @@ public final class Teleports extends JavaPlugin {
         // Player Homes
         commandManager.registerCommand(new SetHomeCommand(this));
         commandManager.registerCommand(new HomeCommand(this));
+        commandManager.registerCommand(new DeleteHomeCommand(this));
     }
 
     private void setupListeners() {
