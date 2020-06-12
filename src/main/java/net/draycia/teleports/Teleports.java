@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import me.minidigger.minimessage.text.MiniMessageParser;
 import net.draycia.teleports.commands.homes.HomeCommand;
 import net.draycia.teleports.commands.misc.BackCommand;
+import net.draycia.teleports.commands.misc.TeleportGroupHereCommand;
 import net.draycia.teleports.commands.misc.TeleportPositionCommand;
 import net.draycia.teleports.commands.misc.TeleportReloadCommand;
 import net.draycia.teleports.commands.pwarps.PlayerEditWarpCommand;
@@ -28,6 +29,7 @@ import net.draycia.teleports.warps.Warp;
 import net.draycia.teleports.warps.WarpManager;
 import net.kyori.text.Component;
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -51,6 +53,7 @@ public final class Teleports extends JavaPlugin {
     private File backFile;
 
     private Economy economy;
+    private Permission permission;
 
     private PlayerWarpManager playerWarpManager;
     private WarpManager warpManager;
@@ -65,6 +68,7 @@ public final class Teleports extends JavaPlugin {
     @Override
     public void onEnable() {
         economy = getServer().getServicesManager().getRegistration(Economy.class).getProvider();
+        permission = getServer().getServicesManager().getRegistration(Permission.class).getProvider();
 
         saveDefaultConfig();
 
@@ -298,6 +302,7 @@ public final class Teleports extends JavaPlugin {
         commandManager.registerCommand(new BackCommand(this));
         commandManager.registerCommand(new TeleportPositionCommand(this));
         commandManager.registerCommand(new TeleportReloadCommand(this));
+        commandManager.registerCommand(new TeleportGroupHereCommand(this));
 
         // Player Warps
         commandManager.registerCommand(new PlayerWarpCommand(this));
@@ -320,6 +325,10 @@ public final class Teleports extends JavaPlugin {
 
     public Economy getEconomy() {
         return economy;
+    }
+
+    public Permission getPermission() {
+        return permission;
     }
 
     public WarpManager getWarpManager() {
